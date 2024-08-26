@@ -154,6 +154,23 @@ class Portfolio:
             start_date_str (str): The start date as a string in the format 'yyyy-mm-dd'.
             end_date_str (str): The end date as a string in the format 'yyyy-mm-dd'.
         """
+        self._validate_date_format(start_date_str)
+        self._validate_date_format(end_date_str)
+        
+        initial_price = self._get_portfolio_value()
+        final_price = self._get_portfolio_value()
+        
+        total_profit = self._calculate_profit_percentage(initial_price, final_price)
+
+        print(f"Profit between {start_date_str} and {end_date_str}: {total_profit:.2f}%")
+
+    
+    def calculate_profit_annualized(self, start_date_str: str, end_date_str:str) -> None:
+        """Calculate and print the profit and annualized profit from a start date until today.
+        
+        Args:
+            start_date_str (str): The start date as a string in the format 'yyyy-mm-dd'.
+        """
         start_date = self._validate_date_format(start_date_str)
         end_date = self._validate_date_format(end_date_str)
         
@@ -165,7 +182,7 @@ class Portfolio:
         total_profit = self._calculate_profit_percentage(initial_price, final_price)
         annualized_profit = self._calculate_annualized_return(initial_price, final_price, years)
 
-        print(f"Profit between {start_date_str} and {end_date_str}: {total_profit:.2f}%")
+        print(f"Profit since {start_date_str}: {total_profit:.2f}%")
         print(f"Annualized profit: {annualized_profit:.2f}%")
 
 #example of use
@@ -173,6 +190,7 @@ class Portfolio:
 # if __name__ == "__main__":
 #     portafolio = Portfolio()
 #     portafolio.calculate_profit_between("2022-01-01", "2020-01-01")
+#     portafolio.calculate_profit_annualized("2022-01-01", "2020-01-01")
         
 
 
